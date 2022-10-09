@@ -1,0 +1,25 @@
+{
+  "name": "webshell",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "xterm": "^5.0.0",
+    "xterm-addon-attach": "^0.7.0",
+    "xterm-addon-fit": "^0.6.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/raykrishardi/webshell.git"
+  },
+  "author": "Ray Layadi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/raykrishardi/webshell/issues"
+  },
+  "homepage": "https://github.com/raykrishardi/webshell#readme"
+}
