@@ -36,7 +36,7 @@ func reader(conn *websocket.Conn) {
 			// print out that message for clarity
 			fmt.Println(string(p))
 
-			c := exec.Command("rlay")
+			c := exec.Command("websh")
 			f, err := pty.Start(c)
 			if err != nil {
 				panic(err)

@@ -8,9 +8,8 @@ import (
 )
 
 var rootCmd = &cobra.Command{
-	Use:   "sh",
-	Short: "Shell CLI",
-	Long:  "This command is used to interact with the webshell CLI",
+	Use:   "websh",
+	Short: "Web shell CLI",
 }
 
 func Execute() {
