@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"os/exec"
+	"strings"
 
 	"github.com/creack/pty"
 	"github.com/gorilla/websocket"
@@ -35,8 +36,13 @@ func reader(conn *websocket.Conn) {
 			}
 			// print out that message for clarity
 			fmt.Println(string(p))
+			commands := strings.Split(string(p), " ")
+			if len(commands) < 1 {
+				log.Println("Empty command...")
+				return
+			}
 
-			c := exec.Command("websh")
+			c := exec.Command("websh", commands[1:]...)
 			f, err := pty.Start(c)
 			if err != nil {
 				panic(err)

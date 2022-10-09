@@ -22,7 +22,8 @@ var helloCmd = &cobra.Command{
 func init() {
 	rootCmd.AddCommand(helloCmd)
 
-	helloCmd.Flags().StringVarP(&hcf.name, "name", "n", "", "random name")
+	helloCmd.Flags().StringVar(&hcf.name, "name", "", "random name")
+	// helloCmd.Flags().StringVarP(&hcf.name, "name", "n", "", "random name") // If you want to use shorthand -n
 	// helloCmd.MarkFlagRequired("name") // If you want to make the name flag required
 }
 
