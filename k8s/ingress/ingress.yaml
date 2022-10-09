@@ -1,0 +1,35 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nginx-ingress
+  namespace: default
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  # tls:
+  # - hosts:
+  #   - playground.rlay.cc
+  #   - playground-ws.rlay.cc
+  # secretName: rlay-cc-tls-cert
+  rules:
+  - host: playground.rlay.cc
+    http:
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: webshell-front
+              port:
+                number: 8080
+  - host: playground-ws.rlay.cc
+    http:
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: webshell-ws
+              port:
+                number: 8081

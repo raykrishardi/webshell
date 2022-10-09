@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: webshell-ws
+  name: webshell-ws
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webshell-ws
+  template:
+    metadata:
+      labels:
+        app: webshell-ws
+    spec:
+      containers:
+      - image: raylayadi/webshell-ws:latest
+        imagePullPolicy: Always
+        name: webshell-ws
+        ports:
+        - containerPort: 8081
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "200m"
+          limits:
+            memory: "128Mi"
+            cpu: "300m"

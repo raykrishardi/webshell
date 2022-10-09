@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: webshell-front
+  name: webshell-front
+  namespace: default
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: webshell-front

@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: webshell-ws
+  name: webshell-ws
+  namespace: default
+spec:
+  ports:
+  - port: 8081
+    protocol: TCP
+    targetPort: 8081
+  selector:
+    app: webshell-ws

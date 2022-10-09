@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: webshell-front
+  name: webshell-front
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webshell-front
+  template:
+    metadata:
+      labels:
+        app: webshell-front
+    spec:
+      containers:
+      - image: raylayadi/webshell-front:latest
+        imagePullPolicy: Always
+        name: webshell-front
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "200m"
+          limits:
+            memory: "128Mi"
+            cpu: "300m"
