@@ -27,6 +27,7 @@
           maximizeWin: true,
           screenReaderMode: true,
           cols: 128,
+          scrollback: 9999999,
         });
         terminal.open(document.getElementById('terminal'));
 
@@ -35,18 +36,65 @@
         var fitAddon = new FitAddon.FitAddon();
         terminal.loadAddon(fitAddon);
 
-
-        var command = "";
-
         function prompt(terminal) {
          command = '';
          terminal.write('\r\n$ ');
         }
 
+        var frontEndCommand = {
+          "clear": {
+            f: () => {
+              terminal.write('\x1bc')
+              prompt(terminal)
+            }
+          }
+        }
+        var command = "";
+
+
+
         prompt(terminal)
         fitAddon.fit();
 
-        terminal._initialized = true;     
+        var url = "ws://127.0.0.1:8080/ws"
+        var ws = new WebSocket(url);
+
+        ws.onclose = function(event) {
+          console.log(event);
+          terminal.write('\r\nconnection has been terminated from the server-side (hit refresh to restart)\r\n')
+          prompt(terminal)
+        };
+
+        ws.onopen = function() {
+          terminal._initialized = true;
+          terminal.focus();
+          setTimeout(function() {fitAddon.fit()});
+          {{/* terminal.onResize(function(event) {
+            var rows = event.rows;
+            var cols = event.cols;
+            console.log(rows)
+            console.log(cols)
+            var size = JSON.stringify({cols: cols, rows: rows + 1});
+            console.log(size)
+            var send = new TextEncoder().encode("\x01" + size);
+            console.log('resizing to', size);
+            ws.send(send);
+          });
+          terminal.onTitleChange(function(event) {
+            console.log(event);
+          });
+          window.onresize = function() {
+            fitAddon.fit();
+          }; */}}
+        };
+
+        ws.onmessage = (event) => {
+          if (event.data !== "") {
+            terminal.write("\r\n" + event.data)
+            prompt(terminal)
+          }
+        }
+
         terminal.onData(e => {
          switch (e) {
            case '\u0003': // Ctrl+C
@@ -56,10 +104,10 @@
            case '\r': // Enter
              if (command === '') {
               prompt(terminal);
+             } else if (command in frontEndCommand) {
+              frontEndCommand[command].f()
              } else {
-             {{/* TODO: Websocket send */}}
-              {{/* runCommand(terminal, command); */}}
-              command = '';
+              ws.send(command); // Send command to server and reset command var
              }
              break;
            case '\u007F': // Backspace (DEL)
@@ -71,7 +119,7 @@
                }
              }
              break;
-           default: // Print all other characters for demo
+           default: // Print all other characters
              if (e >= String.fromCharCode(0x20) && e <= String.fromCharCode(0x7E) || e >= '\u00a0') {
                command += e;
                terminal.write(e);
