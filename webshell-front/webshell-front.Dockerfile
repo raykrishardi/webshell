@@ -8,4 +8,6 @@ COPY webshFrontApp /app
 COPY static /app/static
 COPY templates /app/templates
 
+WORKDIR /app
+
 CMD ["/app/webshFrontApp"]

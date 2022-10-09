@@ -13,7 +13,7 @@ import (
 	"github.com/gorilla/websocket"
 )
 
-const portNumber = ":80"
+const portNumber = ":8081"
 
 var upgrader = websocket.Upgrader{
 	ReadBufferSize:  1024,

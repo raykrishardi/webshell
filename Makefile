@@ -26,5 +26,6 @@ down:
 ## up: starts all containers in the background without forcing build
 up:
 	@echo "Starting Docker images..."
+	docker-compose build --no-cache
 	docker-compose up -d
 	@echo "Docker images started!"

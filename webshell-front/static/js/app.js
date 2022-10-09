@@ -33,7 +33,7 @@ var command = "";
 prompt(terminal)
 fitAddon.fit();
 
-var url = "ws://webshell-ws:80/xterm"
+var url = "ws://webshell-ws:8081/xterm"
 var ws = new WebSocket(url);
 
 ws.onclose = function(event) {
