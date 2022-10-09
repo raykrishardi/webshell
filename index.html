@@ -19,14 +19,12 @@
     <body>
       <div id="terminal"></div>
       <script>
+        // scrollback: 9999999 -> set infinite scrollback
         var terminal = new Terminal({
-          screenKeys: true,
-          useStyle: true,
           cursorBlink: true,
           fullscreenWin: true,
           maximizeWin: true,
           screenReaderMode: true,
-          cols: 128,
           scrollback: 9999999,
         });
         terminal.open(document.getElementById('terminal'));
@@ -69,26 +67,10 @@
           terminal._initialized = true;
           terminal.focus();
           setTimeout(function() {fitAddon.fit()});
-          {{/* terminal.onResize(function(event) {
-            var rows = event.rows;
-            var cols = event.cols;
-            console.log(rows)
-            console.log(cols)
-            var size = JSON.stringify({cols: cols, rows: rows + 1});
-            console.log(size)
-            var send = new TextEncoder().encode("\x01" + size);
-            console.log('resizing to', size);
-            ws.send(send);
-          });
-          terminal.onTitleChange(function(event) {
-            console.log(event);
-          });
-          window.onresize = function() {
-            fitAddon.fit();
-          }; */}}
         };
 
         ws.onmessage = (event) => {
+          {{/* Process and display response from the server */}}
           if (event.data !== "") {
             terminal.write("\r\n" + event.data)
             prompt(terminal)
@@ -107,7 +89,9 @@
              } else if (command in frontEndCommand) {
               frontEndCommand[command].f()
              } else {
-              ws.send(command); // Send command to server and reset command var
+              // Send command to server and reset command
+              ws.send(command);
+              command = "";
              }
              break;
            case '\u007F': // Backspace (DEL)
