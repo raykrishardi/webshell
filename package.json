@@ -5,7 +5,6 @@
   "main": "index.js",
   "dependencies": {
     "xterm": "^5.0.0",
-    "xterm-addon-attach": "^0.7.0",
     "xterm-addon-fit": "^0.6.0"
   },
   "devDependencies": {},
