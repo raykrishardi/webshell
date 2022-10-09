@@ -13,13 +13,11 @@ import (
 	"github.com/gorilla/websocket"
 )
 
+const portNumber = ":80"
+
 var upgrader = websocket.Upgrader{
 	ReadBufferSize:  1024,
 	WriteBufferSize: 1024,
-}
-
-func homePage(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Home Page")
 }
 
 // reader will continuously listen for new messages being sent to the websocket endpoint
@@ -62,26 +60,22 @@ func reader(conn *websocket.Conn) {
 	}()
 }
 
-func wsEndpoint(w http.ResponseWriter, r *http.Request) {
+func xtermEndpoint(w http.ResponseWriter, r *http.Request) {
 	upgrader.CheckOrigin = func(r *http.Request) bool { return true }
 
 	// upgrade this connection to a websocket connection
 	ws, err := upgrader.Upgrade(w, r, nil)
 	if err != nil {
 		log.Println(err)
+		return
 	}
 
 	log.Println("Client Connected")
 	reader(ws)
 }
 
-func setupRoutes() {
-	http.HandleFunc("/", homePage)
-	http.HandleFunc("/ws", wsEndpoint)
-}
-
 func main() {
-	setupRoutes()
-	fmt.Println("Server listening on port 8080")
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	http.HandleFunc("/xterm", xtermEndpoint)
+	fmt.Printf("Server listening on port %s\n", portNumber)
+	log.Fatal(http.ListenAndServe(portNumber, nil))
 }

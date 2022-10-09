@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  webshell-front:
+    build:
+      context: ./webshell-front
+      dockerfile: ./webshell-front.Dockerfile
+    restart: always
+    ports:
+    - "8080:80"
+    deploy:
+      mode: replicated
+      replicas: 1
+  webshell-ws:
+    build:
+      context: ./webshell-ws
+      dockerfile: ./webshell-ws.Dockerfile
+    restart: always
+    deploy:
+      mode: replicated
+      replicas: 1

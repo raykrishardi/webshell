@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 
-	"github.com/raykrishardi/webshell/internal/pkg/shell/cmd"
+	"github.com/raykrishardi/webshell-cli/internal/pkg/shell/cmd"
 )
 
 func main() {
