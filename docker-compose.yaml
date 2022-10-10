@@ -8,6 +8,9 @@ services:
     restart: always
     ports:
     - "8080:80"
+    environment:
+      WS_PROTOCOL: "ws"
+      WS_HOST: "webshell-ws:8081"
     deploy:
       mode: replicated
       replicas: 1

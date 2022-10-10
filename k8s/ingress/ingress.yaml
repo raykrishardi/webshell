@@ -5,13 +5,14 @@ metadata:
   namespace: default
   annotations:
     kubernetes.io/ingress.class: nginx
+    # cert-manager.io/cluster-issuer: letsencrypt-production
+    # cert-manager.io/cluster-issuer: letsencrypt-staging
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   # tls:
   # - hosts:
   #   - playground.rlay.cc
   #   - playground-ws.rlay.cc
-  # secretName: rlay-cc-tls-cert
   rules:
   - host: playground.rlay.cc
     http:

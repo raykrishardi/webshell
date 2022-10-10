@@ -23,7 +23,7 @@ down:
 	docker-compose down
 	@echo "Done!"
 
-## up: starts all containers in the background without forcing build
+## up: starts all containers in the background and forcing build without using cache
 up:
 	@echo "Starting Docker images..."
 	docker-compose build --no-cache

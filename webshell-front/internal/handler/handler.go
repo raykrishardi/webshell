@@ -2,6 +2,7 @@ package handler
 
 import (
 	"net/http"
+	"os"
 
 	"github.com/raykrishardi/webshell-front/internal/entity"
 	"github.com/raykrishardi/webshell-front/internal/pkg/config"
@@ -28,5 +29,11 @@ func NewHandlers(r *Repository) {
 
 // Home is the handler for the home page
 func (m *Repository) Home(w http.ResponseWriter, r *http.Request) {
-	render.Template(w, r, "webshell.page.gohtml", &entity.TemplateData{})
+	data := map[string]string{}
+	data["WS_PROTOCOL"] = os.Getenv("WS_PROTOCOL")
+	data["WS_HOST"] = os.Getenv("WS_HOST")
+
+	render.Template(w, r, "webshell.page.gohtml", &entity.TemplateData{
+		StringMap: data,
+	})
 }
