@@ -6,6 +6,7 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"os"
 	"os/exec"
 	"strings"
 
@@ -13,7 +14,7 @@ import (
 	"github.com/gorilla/websocket"
 )
 
-const portNumber = ":8081"
+var portNumber = fmt.Sprintf(":%s", os.Getenv("WS_PORT"))
 
 var upgrader = websocket.Upgrader{
 	ReadBufferSize:  1024,

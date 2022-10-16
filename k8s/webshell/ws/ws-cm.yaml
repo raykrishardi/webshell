@@ -1,0 +1,7 @@
+apiVersion: v1
+data:
+  WS_PORT: '8081'
+kind: ConfigMap
+metadata:
+  name: ws-cm
+  namespace: webshell

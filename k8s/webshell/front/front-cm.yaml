@@ -1,5 +1,6 @@
 apiVersion: v1
 data:
+  FRONT_PORT: "80"
   WS_PROTOCOL: 'wss'
   WS_HOST: 'playground-ws.rlay.cc'
 kind: ConfigMap

@@ -9,6 +9,7 @@ services:
     ports:
     - "8080:80"
     environment:
+      FRONT_PORT: "80"
       WS_PROTOCOL: "ws"
       WS_HOST: "webshell-ws:8081"
     deploy:
@@ -20,6 +21,8 @@ services:
       dockerfile: ./webshell-ws.Dockerfile
     ports:
     - "8081:8081"
+    environment:
+      WS_PORT: "8081"
     restart: always
     deploy:
       mode: replicated

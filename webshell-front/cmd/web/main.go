@@ -4,13 +4,14 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/raykrishardi/webshell-front/internal/handler"
 	"github.com/raykrishardi/webshell-front/internal/pkg/config"
 	"github.com/raykrishardi/webshell-front/internal/pkg/render"
 )
 
-const portNumber = ":80"
+var portNumber = fmt.Sprintf(":%s", os.Getenv("FRONT_PORT"))
 
 var app config.AppConfig
 
