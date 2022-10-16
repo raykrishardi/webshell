@@ -1,6 +1,6 @@
 apiVersion: v1
 data:
-  WS_PROTOCOL: 'ws'
+  WS_PROTOCOL: 'wss'
   WS_HOST: 'playground-ws.rlay.cc'
 kind: ConfigMap
 metadata:
