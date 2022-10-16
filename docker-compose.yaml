@@ -19,11 +19,13 @@ services:
     build:
       context: ./webshell-ws
       dockerfile: ./webshell-ws.Dockerfile
+      args:
+        ROOT_CMD: "iot"
     ports:
     - "8081:8081"
     environment:
       WS_PORT: "8081"
-      ROOT_CMD: "websh"
+      ROOT_CMD: "iot"
     restart: always
     deploy:
       mode: replicated
