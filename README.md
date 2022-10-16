@@ -100,6 +100,8 @@ webshell-ws:
         ROOT_CMD: "iot"
     environment:
       ROOT_CMD: "iot"
+      GRPC_HOST: "<domain address of the IoT controller>"
+      GRPC_PORT: "<port number of the IoT controller service> (eg. 50001)"
 `
 make down && make up
 ```
@@ -113,6 +115,13 @@ cp <path_to_custom_binary> webshell-ws/
 docker build --no-cache --build-arg ROOT_CMD=iot -f webshell-ws.Dockerfile -t raylayadi/webshell-ws:iot-latest .
 docker push raylayadi/webshell-ws:iot-latest
 
-# Set k8s/webshell/ws/ws-deploy.yaml to use the new image
-# Set the ROOT_CMD env var value (`iot` in this case) in config map k8s/webshell/ws/ws-cm.yaml
+# Set k8s/webshell/ws/ws-deploy.yaml to use the new image (eg. raylayadi/webshell-ws:iot-latest)
+# Set the env var value in config map k8s/webshell/ws/ws-cm.yaml
+`
+data:
+  ROOT_CMD: "iot"
+  # GRPC_HOST and GRPC_PORT are specific to iot binary
+  GRPC_HOST: "<domain address of the IoT controller>"
+  GRPC_PORT: "<port number of the IoT controller service> (eg. 50001)"
+`
 ```
