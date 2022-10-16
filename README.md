@@ -22,7 +22,7 @@ vim /etc/hosts
 # Open browser and navigate to localhost:8080
 ```
 
-### Run on k8s
+### Run on k8s (http)
 ```
 git clone https://github.com/raykrishardi/webshell.git
 cd webshell/k8s
@@ -38,4 +38,24 @@ vim /etc/hosts
 ` 
 
 # Open browser and navigate to http://playground.rlay.cc
+```
+
+### Run on k8s (https)
+```
+git clone https://github.com/raykrishardi/webshell.git
+cd webshell/k8s
+bash ingress/install.sh
+bash cert-manager/install.sh
+kubectl apply -f cert-manager
+kubectl apply -f ingress
+kubectl apply -f webshell/ws
+kubectl apply -f webshell/front
+
+# Need to edit /etc/hosts file for resolving the ingress LB
+vim /etc/hosts
+`
+<ingress LB IP>       playground.rlay.cc playground-ws.rlay.cc
+` 
+
+# Open browser and navigate to https://playground.rlay.cc
 ```
