@@ -11,8 +11,3 @@ helm install \
   --create-namespace \
   --version v1.9.1 \
   --set installCRDs=true
-
-
-# clusterissuer
-kubectl apply -f clusterissuer-staging.yaml
-kubectl apply -f clusterissuer-production.yaml
