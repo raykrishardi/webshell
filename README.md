@@ -63,3 +63,56 @@ vim /etc/hosts
 
 # Open browser and navigate to https://playground.rlay.cc
 ```
+
+## Using custom root command for the webshell
+
+### docker-compose
+```
+cd webshell
+# Copy the custom binary to webshell-ws folder
+cp <path_to_custom_binary> webshell-ws/
+# Modify the build args and environment var with the new binary
+vim docker-compose.yaml
+`
+webshell-ws:
+    build:
+      args:
+        ROOT_CMD: "<custom_binary>"
+    environment:
+      ROOT_CMD: "<custom_binary>"
+`
+make down && make up
+```
+
+#### Example (using [iot-controller CLI](https://github.com/raykrishardi/iot-controller))
+```
+cd webshell
+git clone https://github.com/raykrishardi/iot-controller.git
+cd iot-controller
+make build-iot-cli
+cd ..
+cp iot-controller/iot-controller-cli/iot webshell-ws/
+vim docker-compose.yaml
+`
+webshell-ws:
+    build:
+      args:
+        ROOT_CMD: "iot"
+    environment:
+      ROOT_CMD: "iot"
+`
+make down && make up
+```
+
+### k8s
+```
+cd webshell
+# Copy the custom binary to webshell-ws folder
+cp <path_to_custom_binary> webshell-ws/
+# Example custom binary called iot in this case
+docker build --no-cache --build-arg ROOT_CMD=iot -f webshell-ws.Dockerfile -t raylayadi/webshell-ws:iot-latest .
+docker push raylayadi/webshell-ws:iot-latest
+
+# Set k8s/webshell/ws/ws-deploy.yaml to use the new image
+# Set the ROOT_CMD env var value (`iot` in this case) in config map k8s/webshell/ws/ws-cm.yaml
+```
