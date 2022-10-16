@@ -23,6 +23,7 @@ services:
     - "8081:8081"
     environment:
       WS_PORT: "8081"
+      ROOT_CMD: "websh"
     restart: always
     deploy:
       mode: replicated

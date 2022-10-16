@@ -14,7 +14,10 @@ import (
 	"github.com/gorilla/websocket"
 )
 
-var portNumber = fmt.Sprintf(":%s", os.Getenv("WS_PORT"))
+var (
+	portNumber = fmt.Sprintf(":%s", os.Getenv("WS_PORT"))
+	rootCmd    = os.Getenv("ROOT_CMD")
+)
 
 var upgrader = websocket.Upgrader{
 	ReadBufferSize:  1024,
@@ -43,7 +46,7 @@ func reader(conn *websocket.Conn) {
 			}
 
 			// Execute the command in its own pty (pseudo-terminal)
-			c := exec.Command("websh", commands[1:]...)
+			c := exec.Command(rootCmd, commands[1:]...)
 			f, err := pty.Start(c)
 			if err != nil {
 				panic(err)
