@@ -27,6 +27,8 @@ vim /etc/hosts
 git clone https://github.com/raykrishardi/webshell.git
 cd webshell/k8s
 bash ingress/install.sh
+
+kubectl create ns webshell
 kubectl apply -f ingress
 kubectl apply -f webshell/ws
 kubectl apply -f webshell/front
@@ -47,6 +49,8 @@ cd webshell/k8s
 bash ingress/install.sh
 bash cert-manager/install.sh
 kubectl apply -f cert-manager
+
+kubectl create ns webshell
 kubectl apply -f ingress
 kubectl apply -f webshell/ws
 kubectl apply -f webshell/front
