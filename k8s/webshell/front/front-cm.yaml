@@ -5,3 +5,4 @@ data:
 kind: ConfigMap
 metadata:
   name: front-cm
+  namespace: webshell

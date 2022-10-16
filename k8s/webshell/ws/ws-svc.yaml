@@ -4,7 +4,7 @@ metadata:
   labels:
     app: webshell-ws
   name: webshell-ws
-  namespace: default
+  namespace: webshell
 spec:
   ports:
   - port: 8081

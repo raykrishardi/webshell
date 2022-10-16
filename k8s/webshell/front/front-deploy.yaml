@@ -4,7 +4,7 @@ metadata:
   labels:
     app: webshell-front
   name: webshell-front
-  namespace: default
+  namespace: webshell
 spec:
   replicas: 1
   selector:
