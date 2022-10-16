@@ -1,5 +1,5 @@
 # Webshell
-Interactive terminal website built using xterm.js and Go websocket. Try it out at `playground.rlay.cc` 🎉
+Interactive terminal website built using xterm.js and Go websocket. Try it out at [playground.rlay.cc](https://playground.rlay.cc) 🎉
 
 ## Getting Started
 
